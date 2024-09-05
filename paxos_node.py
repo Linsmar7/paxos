@@ -23,14 +23,14 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
     dict_sockets_push[id_destino] = socket_push
 
   # Espera conexões
-  time.sleep(0.3)
+  time.sleep(1)
 
   for r in range(numRodadas):
     e_proposer = r % numProc == id_no
 
     if e_proposer:
       print(f"RODADA {r} INICIADA COM VALOR INICIAL: {valor}")
-      time.sleep(0.3)
+      time.sleep(1)
 
       broadcastComFalha(
         conteudo="INICIAR",
@@ -47,7 +47,7 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
     corpo_mensagem_recebida = mensagem_recebida["conteudo"]
     remetente_mensagem_recebida = mensagem_recebida["de"]
 
-    time.sleep(0.3)
+    time.sleep(1)
 
     # Fase1 --------------------------------------------------
     contagem_juncao = 0
@@ -109,7 +109,7 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
       print(f"ACCEPTOR {id_no} RECEBEU NA FASE DE JOIN: {corpo_mensagem_recebida}")
 
       if "INICIAR" in corpo_mensagem_recebida:
-        time.sleep(0.3)
+        time.sleep(1)
 
         # Envia "JOIN" ao proposer
         enviarComFalha(
@@ -133,7 +133,7 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
     # Fase2 --------------------------------------------------
     if e_proposer:
       # Como proposer
-      time.sleep(0.3)
+      time.sleep(1)
 
       if ira_propor:
         # Broadcast 'PROPOSE'
@@ -204,7 +204,7 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
 
     elif not e_proposer:
       # Como acceptor
-      time.sleep(0.3)
+      time.sleep(1)
       print(f"ACCEPTOR {id_no} RECEBEU NA FASE DE VOTAÇÃO: {corpo_mensagem_recebida}")
 
       if "PROPOSE" in corpo_mensagem_recebida:
@@ -233,6 +233,6 @@ def PaxosNos(id_no, valor, numProc, prob, numRodadas, barreira):
       pass
 
     barreira.wait()
-    time.sleep(0.3)
+    time.sleep(1)
 
   pass

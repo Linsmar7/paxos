@@ -8,7 +8,7 @@ from paxos_node import PaxosNos
 def criar_processos(num_proc, prob_falha, num_rodadas, barreira):
   processos = []
   for id_no in range(num_proc):
-    valor_inicial = random.randint(0, 1)
+    valor_inicial = random.randint(0, 100)
     processo = Process(
       target=PaxosNos,
       args=(id_no, valor_inicial, num_proc, prob_falha, num_rodadas, barreira)
